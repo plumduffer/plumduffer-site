@@ -1,0 +1,33 @@
+name: plumduffer
+recipe: mean
+config:
+  node: 18
+  port: 3000
+  ssl: true
+  build:
+    - curl -fsSL https://get.pnpm.io/install.sh | bash -
+    - pnpm install
+    - pnpm add -g npm-check-updates
+  command: false
+  database: postgres:14
+services:
+  appserver:
+    overrides:
+      environment:
+        PNPM_HOME: /home/node/.local/share/pnpm
+        PATH: /home/node/.local/share/pnpm:$PATH
+    scanner: false
+    sslExpose: false
+tooling:
+  pnpm:
+    service: appserver
+    description: Runs pnpm commands
+    cmd: pnpm
+  ncu:
+    service: appserver
+    description: Runs npm-check-updates global package
+    cmd: ncu
+proxy:
+  appserver:
+    - plumduffer.lndo.site:3000
+    # - frontend.plumduffer.lndo.site:5173
