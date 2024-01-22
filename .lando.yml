@@ -36,4 +36,4 @@ tooling:
 proxy:
   appserver:
     - plumduffer.lndo.site:3000
-    # - frontend.plumduffer.lndo.site:5173
+    - cms.plumduffer.lndo.site:3001
