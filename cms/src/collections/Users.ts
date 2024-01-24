@@ -29,6 +29,7 @@ const Users: CollectionConfig = {
       },
       hooks: {
         beforeValidate: [({ value }) => {
+          if (!value) return [];
           if (!value.includes('viewer')) return value;
           return ['viewer'];
         }]
