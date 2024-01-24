@@ -1,7 +1,7 @@
 import { CollectionConfig } from 'payload/types'
 import { isAdmin, isAdminFieldLevel } from '../access/isAdmin'
 import { isAdminOrSelf } from '../access/isAdminOrSelf'
-import { isNotViewer } from '../access/isNotViewer'
+import { restrictViewer } from '../access/restrictViewer'
 
 const Users: CollectionConfig = {
   slug: 'users',
@@ -14,7 +14,7 @@ const Users: CollectionConfig = {
     read: isAdminOrSelf,
     update: isAdmin,
     delete: isAdmin,
-    admin: isNotViewer
+    admin: restrictViewer
   },
   fields: [
     {

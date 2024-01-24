@@ -5,8 +5,23 @@ import { postgresAdapter } from '@payloadcms/db-postgres'
 import { webpackBundler } from '@payloadcms/bundler-webpack'
 import { slateEditor } from '@payloadcms/richtext-slate'
 import { buildConfig } from 'payload/config'
+import { restrictViewer } from './access/restrictViewer'
 
 import Users from './collections/Users'
+import Pages from './collections/Pages'
+
+const publicCollections = [];
+const passwordProtectedCollections = [Pages];
+const massAccessControlledCollections = [publicCollections, passwordProtectedCollections].flat();
+
+massAccessControlledCollections.forEach(collection => {
+  collection.access ??= {};
+  ['create', 'update', 'delete'].forEach(mutation => {
+    collection.access[mutation] ??= restrictViewer
+  });
+})
+
+publicCollections.forEach(collection => collection.access.read ??= () => true);
 
 export default buildConfig({
   admin: {
@@ -14,7 +29,7 @@ export default buildConfig({
     bundler: webpackBundler(),
   },
   editor: slateEditor({}),
-  collections: [Users],
+  collections: [Users, ...massAccessControlledCollections],
   cors: [
     'https://plumduffer.lndo.site'
   ],
