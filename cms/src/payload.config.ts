@@ -7,7 +7,6 @@ import { slateEditor } from '@payloadcms/richtext-slate'
 import { buildConfig } from 'payload/config'
 
 import Users from './collections/Users'
-import Guests from './collections/Guests'
 
 export default buildConfig({
   admin: {
@@ -15,7 +14,7 @@ export default buildConfig({
     bundler: webpackBundler(),
   },
   editor: slateEditor({}),
-  collections: [Users, Guests],
+  collections: [Users],
   cors: [
     'https://plumduffer.lndo.site'
   ],

@@ -1,4 +1,7 @@
 import { CollectionConfig } from 'payload/types'
+import { isAdmin, isAdminFieldLevel } from '../access/isAdmin'
+import { isAdminOrSelf } from '../access/isAdminOrSelf'
+import { isNotViewer } from '../access/isNotViewer'
 
 const Users: CollectionConfig = {
   slug: 'users',
@@ -6,9 +9,48 @@ const Users: CollectionConfig = {
   admin: {
     useAsTitle: 'email',
   },
+  access: {
+    create: isAdmin,
+    read: isAdminOrSelf,
+    update: isAdmin,
+    delete: isAdmin,
+    admin: isNotViewer
+  },
   fields: [
-    // Email added by default
-    // Add more fields as needed
+    {
+      name: 'roles',
+      saveToJWT: true,
+      type: 'select',
+      hasMany: true,
+      defaultValue: ['viewer'],
+      access: {
+        create: isAdminFieldLevel,
+        update: isAdminFieldLevel
+      },
+      hooks: {
+        beforeValidate: [({ value }) => {
+          if (!value.includes('viewer')) return value;
+          return ['viewer'];
+        }]
+      },
+      validate: (val, { operation, id, user }) => {
+        if (operation === 'create') return true;
+        if (val.includes('viewer') && +id === +user.id) {
+          return `Setting 'Viewer Only' on yourself will lock you out of the admin panel. Aborting action.`;
+        }
+        return true;
+      },
+      options: [
+        {
+          label: 'Admin',
+          value: 'admin'
+        },
+        {
+          label: 'Viewer Only',
+          value: 'viewer'
+        }
+      ]
+    }
   ],
 }
 
