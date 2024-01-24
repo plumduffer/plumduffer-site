@@ -23,6 +23,9 @@ const Users: CollectionConfig = {
       type: 'select',
       hasMany: true,
       defaultValue: ['viewer'],
+      admin: {
+        description: `Choosing 'Viewer Only' will overwrite all other roles. The user will no longer have access to the content management system. They will only be able to view password protected pages.`
+      },
       access: {
         create: isAdminFieldLevel,
         update: isAdminFieldLevel
@@ -37,7 +40,7 @@ const Users: CollectionConfig = {
       validate: (val, { operation, id, user }) => {
         if (operation === 'create') return true;
         if (val.includes('viewer') && +id === +user.id) {
-          return `Setting 'Viewer Only' on yourself will lock you out of the admin panel. Aborting action.`;
+          return `Setting 'Viewer Only' on yourself will lock you out of the content management system. Aborting action.`;
         }
         return true;
       },
