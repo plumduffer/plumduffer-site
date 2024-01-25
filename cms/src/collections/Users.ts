@@ -2,6 +2,7 @@ import { CollectionConfig } from 'payload/types'
 import { isAdmin, isAdminFieldLevel } from '../access/isAdmin'
 import { isAdminOrSelf } from '../access/isAdminOrSelf'
 import { restrictViewer } from '../access/restrictViewer'
+import payload from 'payload'
 
 const Users: CollectionConfig = {
   slug: 'users',
@@ -15,6 +16,20 @@ const Users: CollectionConfig = {
     update: isAdmin,
     delete: isAdmin,
     admin: restrictViewer
+  },
+  hooks: {
+    beforeValidate: [async ({ data, operation }) => {
+      if (operation !== 'create') return data;
+      const users = await payload.find({
+        collection: 'users',
+        depth: 0,
+        limit: 1,
+        pagination: false,
+      });
+      if (users.docs.length) return data;
+      data.roles = ['admin'];
+      return data;
+    }]
   },
   fields: [
     {
