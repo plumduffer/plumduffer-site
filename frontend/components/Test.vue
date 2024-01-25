@@ -1,6 +1,6 @@
 <template>
     Hello World!
-    <button @click="login">Click to Login as Viewer</button>
+    <Button @click="login">Click to Login as Viewer</Button>
     <button @click="check">Check user</button>
     <button @click="data">Test data</button>
 </template>
