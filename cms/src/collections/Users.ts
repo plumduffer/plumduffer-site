@@ -6,7 +6,11 @@ import payload from 'payload'
 
 const Users: CollectionConfig = {
   slug: 'users',
-  auth: true,
+  auth: {
+    cookies: {
+      domain: process.env.PAYLOAD_PUBLIC_FRONTEND_HOST
+    }
+  },
   admin: {
     useAsTitle: 'email',
   },

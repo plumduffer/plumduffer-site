@@ -10,6 +10,9 @@ import { restrictViewer } from './access/restrictViewer'
 import Users from './collections/Users'
 import Pages from './collections/Pages'
 
+const CMS_URL = `https://${process.env.PAYLOAD_PUBLIC_CMS_HOST}`
+const FRONTEND_URLS = [`https://${process.env.PAYLOAD_PUBLIC_FRONTEND_HOST}`];
+
 const publicCollections = [];
 const passwordProtectedCollections = [Pages];
 const massAccessControlledCollections = [publicCollections, passwordProtectedCollections].flat();
@@ -24,15 +27,15 @@ massAccessControlledCollections.forEach(collection => {
 publicCollections.forEach(collection => collection.access.read ??= () => true);
 
 export default buildConfig({
+  serverURL: CMS_URL,
   admin: {
     user: Users.slug,
     bundler: webpackBundler(),
   },
   editor: slateEditor({}),
   collections: [Users, ...massAccessControlledCollections],
-  cors: [
-    'https://plumduffer.lndo.site'
-  ],
+  cors: FRONTEND_URLS,
+  csrf: FRONTEND_URLS,
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
   },
