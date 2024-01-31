@@ -27,6 +27,7 @@
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
     "vee-validate": "^4.12.4",
+    "vue-sonner": "^1.0.3",
     "zod": "^3.22.4"
   }
 }

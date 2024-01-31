@@ -15,7 +15,8 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      cmsHost: ''
+      cmsHost: '',
+      guestEmail: '',
     }
   }
 })
