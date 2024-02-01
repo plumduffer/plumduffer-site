@@ -1,8 +1,10 @@
+import type { UseFetchOptions } from "nuxt/app";
+
 export const usePayloadUser = () => useState("user");
 
-export const usePayloadAPI = async (
-    apiRoute,
-    { method = "GET", ...restOfOptions } = {},
+export const usePayloadAPI = async <DataT>(
+    apiRoute: string | Ref<string> | (() => string),
+    { method = "GET", ...restOfOptions }: UseFetchOptions<DataT> = {},
 ) => {
     const baseURL = `https://${useRuntimeConfig().public.cmsHost}/api`;
     return await useFetch(apiRoute, {
@@ -14,7 +16,13 @@ export const usePayloadAPI = async (
     });
 };
 
-export const useLoginPayloadUser = async ({ email, password }) => {
+export const useLoginPayloadUser = async ({
+    email,
+    password,
+}: {
+    email: string;
+    password: string;
+}) => {
     const payloadUser = usePayloadUser();
 
     const response = await usePayloadAPI("/users/login", {
