@@ -17,8 +17,8 @@ const { class: className, ...rest } = useAttrs();
     <Label
         :class="
             cn(
-                'block text-sm tracking-tight font-medium text-neutral-950 text-left dark:text-neutral-50',
-                error && 'text-red-500 dark:text-red-900',
+                'block text-sm tracking-tight font-medium text-neutral-950 text-left',
+                error && 'text-red-500',
                 className ?? '',
             )
         "

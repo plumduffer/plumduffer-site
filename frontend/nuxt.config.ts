@@ -13,6 +13,9 @@ export default defineNuxtConfig({
          */
         componentDir: "./components/ui",
     },
+    tailwindcss: {
+        cssPath: "~/assets/css/main.css",
+    },
     runtimeConfig: {
         public: {
             cmsHost: "",

@@ -18,6 +18,19 @@ module.exports = {
             },
         },
         extend: {
+            colors: {
+                plum: {
+                    primary: "#3e2f4f",
+                    light: "#b689e7",
+                    dark: "#352945",
+                    darker: "#261e31",
+                    darkest: "#1b1523",
+                },
+                shirt: {
+                    dark: "#cb6b4b",
+                    darkest: "#89342b",
+                },
+            },
             keyframes: {
                 "accordion-down": {
                     from: { height: 0 },
