@@ -41,7 +41,7 @@ const onSubmit = form.handleSubmit(async (values) => {
 
 <template>
     <main
-        class="h-[100dvh] grid px-12 grid-rows-[2fr_1fr] sm:grid-rows-[1.5fr_1fr]"
+        class="h-[100dvh] grid px-24 grid-rows-[2fr_1fr] sm:grid-rows-[1.3fr_1fr]"
     >
         <div class="self-end">
             <hgroup class="text-center pb-12">
