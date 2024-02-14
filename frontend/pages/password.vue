@@ -3,6 +3,7 @@ import { useForm } from "vee-validate";
 import { toTypedSchema } from "@vee-validate/zod";
 import * as z from "zod";
 import { toast } from "vue-sonner";
+import { UnlockKeyhole } from "lucide-vue-next";
 
 useHead({
     bodyAttrs: {
@@ -39,20 +40,22 @@ const onSubmit = form.handleSubmit(async (values) => {
 </script>
 
 <template>
-    <main class="h-[100dvh] grid px-12 place-items-center">
-        <div>
-            <hgroup class="text-center pb-12 self-end">
-                <h1 class="text-7xl lg:text-9xl pb-3">Plum Duffer</h1>
-                <p class="text-2xl lg:text-4xl font-semibold italic">
+    <main
+        class="h-[100dvh] grid px-12 grid-rows-[2fr_1fr] sm:grid-rows-[1.5fr_1fr]"
+    >
+        <div class="self-end">
+            <hgroup class="text-center pb-12">
+                <h1 class="text-7xl md:text-9xl pb-3">Plum Duffer</h1>
+                <p class="text-2xl md:text-4xl font-semibold italic">
                     Freelance Web Developer
                 </p>
             </hgroup>
             <form
-                class="flex flex-col max-w-96 mx-auto lg:flex-row gap-3"
+                class="flex max-w-80 md:max-w-96 mx-auto gap-2"
                 @submit="onSubmit"
             >
                 <FormField v-slot="{ componentField }" name="password">
-                    <FormItem class="h-16">
+                    <FormItem class="h-16 flex-grow">
                         <FormControl>
                             <Input
                                 type="password"
@@ -63,8 +66,18 @@ const onSubmit = form.handleSubmit(async (values) => {
                         <FormMessage />
                     </FormItem>
                 </FormField>
-                <Button type="submit" class="w-fit mx-auto"> Unlock </Button>
+                <Button type="submit" class="w-fit">
+                    <UnlockKeyhole class="sm:hidden" />
+                    <span class="max-sm:hidden">Unlock</span>
+                </Button>
             </form>
+        </div>
+        <div class="mx-auto max-w-3xl self-end">
+            <img
+                class="pt-16"
+                src="/img/plumduffer_t.png"
+                alt="Plum Duffer Avatar"
+            />
         </div>
     </main>
 </template>
