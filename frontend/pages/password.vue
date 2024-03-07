@@ -6,6 +6,7 @@ import { toast } from "vue-sonner";
 import { UnlockKeyhole } from "lucide-vue-next";
 
 useHead({
+    title: "Plum Duffer - Freelance Web Developer",
     bodyAttrs: {
         class: "bg-plum-primary",
     },
