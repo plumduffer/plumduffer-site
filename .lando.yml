@@ -1,8 +1,7 @@
 name: plumduffer
 recipe: mean
 config:
-    # Node version is actually 20.11.0, see build steps and tooling below.
-    node: 18
+    node: 20
     port: 3000
     ssl: true
     build: false
@@ -11,7 +10,6 @@ config:
 services:
     appserver:
         build:
-            - export NODE_VERSION=20.11.0 && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
             - curl -fsSL https://get.pnpm.io/install.sh | bash -
             - pnpm add -g npm-check-updates
         overrides:
@@ -27,12 +25,6 @@ tooling:
     ncu:
         service: appserver
         description: Runs npm-check-updates global package
-    node:
-        service: appserver
-        cmd: /home/node/.nvm/versions/node/v20.11.0/bin/node
-    npm:
-        service: appserver
-        cmd: /home/node/.nvm/versions/node/v20.11.0/bin/npm
 proxy:
     appserver:
         - plumduffer.lndo.site:3000
