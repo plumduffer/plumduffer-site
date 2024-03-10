@@ -6,7 +6,6 @@ export const usePayloadAPI = (
 ) => {
     const { method = "GET", ...restOfOptions } = options ?? {};
     const baseURL = `https://${useRuntimeConfig().public.cmsHost}/api`;
-    console.log(useRequestHeaders(["cookie"]));
     return useFetch(apiRoute, {
         baseURL,
         method,
@@ -42,6 +41,8 @@ export const useLoginPayloadUser = async ({
 
 export const useGetPayloadUser = async () => {
     const payloadUser = usePayloadUser();
-    const { data } = await usePayloadAPI("/users/me");
+    const { data, error } = await usePayloadAPI("/users/me");
+    console.log(error.value);
+    console.log(data.value);
     payloadUser.value = (data.value as any).user;
 };
