@@ -9,6 +9,7 @@ export const usePayloadAPI = (
     return useFetch(apiRoute, {
         baseURL,
         method,
+        ...(process.client && { credentials: "include" }),
         headers: useRequestHeaders(["cookie"]),
         ...restOfOptions,
     });
