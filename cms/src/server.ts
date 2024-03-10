@@ -9,6 +9,11 @@ app.get("/", (_, res) => {
     res.redirect("/admin");
 });
 
+app.use((_, res, next) => {
+    res.setHeader("X-Robots-Tag", "none");
+    next();
+});
+
 const start = async () => {
     // Initialize Payload
     await payload.init({
