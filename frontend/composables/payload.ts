@@ -9,7 +9,6 @@ export const usePayloadAPI = (
     return useFetch(apiRoute, {
         baseURL,
         method,
-        credentials: "include",
         headers: useRequestHeaders(["cookie"]),
         ...restOfOptions,
     });
@@ -41,8 +40,6 @@ export const useLoginPayloadUser = async ({
 
 export const useGetPayloadUser = async () => {
     const payloadUser = usePayloadUser();
-    const { data, error } = await usePayloadAPI("/users/me");
-    console.log(error.value);
-    console.log(data.value);
+    const { data } = await usePayloadAPI("/users/me");
     payloadUser.value = (data.value as any).user;
 };
