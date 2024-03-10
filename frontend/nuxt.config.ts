@@ -18,8 +18,8 @@ export default defineNuxtConfig({
     },
     runtimeConfig: {
         public: {
-            cmsHost: "",
-            guestEmail: "",
+            cmsHost: process.env.NUXT_PUBLIC_CMS_HOST,
+            guestEmail: process.env.NUXT_PUBLIC_GUEST_EMAIL,
         },
     },
 });
