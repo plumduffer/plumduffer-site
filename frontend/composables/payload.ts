@@ -6,12 +6,12 @@ export const usePayloadAPI = (
 ) => {
     const { method = "GET", ...restOfOptions } = options ?? {};
     const baseURL = `https://${useRuntimeConfig().public.cmsHost}/api`;
-    console.log({ baseURL, apiRoute });
+    console.log(useRequestHeaders(["cookie"]));
     return useFetch(apiRoute, {
         baseURL,
         method,
         credentials: "include",
-        headers: useRequestHeaders(),
+        headers: useRequestHeaders(["cookie"]),
         ...restOfOptions,
     });
 };
