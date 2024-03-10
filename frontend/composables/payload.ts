@@ -6,6 +6,7 @@ export const usePayloadAPI = (
 ) => {
     const { method = "GET", ...restOfOptions } = options ?? {};
     const baseURL = `https://${useRuntimeConfig().public.cmsHost}/api`;
+    console.log({ baseURL, apiRoute });
     return useFetch(apiRoute, {
         baseURL,
         method,
