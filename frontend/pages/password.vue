@@ -6,7 +6,15 @@ import { toast } from "vue-sonner";
 import { UnlockKeyhole } from "lucide-vue-next";
 
 useHead({
-    title: "Plum Duffer - Freelance Web Developer",
+    title: "Plum Duffer",
+    meta: [
+        { name: "description", content: "Freelance Web Developer" },
+        { property: "og:title", content: "Plum Duffer" },
+        { property: "og:description", content: "Freelance Web Developer" },
+        { property: "og:image", content: "/img/og.png" },
+        { property: "og:url", content: useRequestURL().href },
+        { property: "og:type", content: "website" },
+    ],
     bodyAttrs: {
         class: "bg-plum-primary",
     },
