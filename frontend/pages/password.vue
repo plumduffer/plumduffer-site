@@ -56,7 +56,7 @@ const onSubmit = form.handleSubmit(async (values) => {
     <main class="h-[100dvh] grid grid-rows-[2fr_1fr] sm:grid-rows-[1.3fr_1fr]">
         <div class="self-end px-12 lg:px-24">
             <hgroup class="text-center pb-12">
-                <h1 class="text-7xl md:text-9xl pb-3">Plum Duffer</h1>
+                <h1 class="text-8xl md:text-9xl pb-3">Plum Duffer</h1>
                 <p class="text-2xl md:text-4xl font-semibold italic">
                     Freelance Web Developer
                 </p>
