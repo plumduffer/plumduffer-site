@@ -3,7 +3,9 @@ import { useForm } from "vee-validate";
 import { toTypedSchema } from "@vee-validate/zod";
 import * as z from "zod";
 import { toast } from "vue-sonner";
-import { UnlockKeyhole } from "lucide-vue-next";
+import { UnlockKeyhole, Loader } from "lucide-vue-next";
+
+const isLoading = ref(false);
 
 useHead({
     title: "Plum Duffer",
@@ -31,10 +33,12 @@ const form = useForm({
 });
 
 const onSubmit = form.handleSubmit(async (values) => {
+    isLoading.value = true;
     const { error } = await useLoginPayloadUser({
         email: useRuntimeConfig().public.guestEmail,
         password: values.password,
     });
+    isLoading.value = false;
 
     if (error.value) {
         const errorsAsString = error.value.data.errors.reduce(
@@ -74,8 +78,11 @@ const onSubmit = form.handleSubmit(async (values) => {
                     </FormItem>
                 </FormField>
                 <Button type="submit" class="w-fit">
-                    <UnlockKeyhole class="sm:hidden" />
-                    <span class="max-sm:hidden">Unlock</span>
+                    <Loader class="animate-spin" v-if="isLoading" />
+                    <template v-else>
+                        <UnlockKeyhole class="sm:hidden" />
+                        <span class="max-sm:hidden">Unlock</span>
+                    </template>
                 </Button>
             </form>
         </div>
