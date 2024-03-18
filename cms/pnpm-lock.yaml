@@ -29,6 +29,9 @@ dependencies:
   payload:
     specifier: ^2.11.2
     version: 2.11.2(esbuild@0.18.20)(typescript@5.4.2)(webpack@5.89.0)
+  react:
+    specifier: ^18.2.0
+    version: 18.2.0
 
 devDependencies:
   '@types/express':

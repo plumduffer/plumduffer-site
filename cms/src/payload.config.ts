@@ -10,6 +10,8 @@ import { restrictViewer } from "./access/restrictViewer";
 import Users from "./collections/Users";
 import Pages from "./collections/Pages";
 
+import Global from "./collections/Global";
+
 const CMS_URL = `https://${process.env.PAYLOAD_PUBLIC_CMS_HOST}`;
 const FRONTEND_URLS = [`https://${process.env.PAYLOAD_PUBLIC_FRONTEND_HOST}`];
 
@@ -39,6 +41,7 @@ export default buildConfig({
     },
     editor: slateEditor({}),
     collections: [Users, ...massAccessControlledCollections],
+    globals: [Global],
     cors: FRONTEND_URLS,
     csrf: FRONTEND_URLS,
     typescript: {
