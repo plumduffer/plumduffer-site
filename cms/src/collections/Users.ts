@@ -1,7 +1,6 @@
 import { CollectionConfig } from "payload/types";
 import { isAdmin, isAdminFieldLevel } from "../access/isAdmin";
 import { isAdminOrSelf } from "../access/isAdminOrSelf";
-import { restrictViewer } from "../access/restrictViewer";
 import payload from "payload";
 
 const Users: CollectionConfig = {
@@ -19,7 +18,6 @@ const Users: CollectionConfig = {
         read: isAdminOrSelf,
         update: isAdmin,
         delete: isAdmin,
-        admin: restrictViewer,
     },
     hooks: {
         beforeValidate: [

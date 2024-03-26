@@ -16,11 +16,12 @@ export function RowLabel({ data }) {
     if (link.type === "externalUrl") return link.customText || link.externalUrl;
 }
 
-function Link({ ...props }): GroupField {
+function Link({ ...userDefinedProperties }): GroupField {
     return {
         type: "group",
         name: "link",
-        ...props,
+        interfaceName: "SharedLink",
+        ...userDefinedProperties,
         fields: [
             {
                 name: "type",

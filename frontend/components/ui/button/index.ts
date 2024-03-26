@@ -14,7 +14,7 @@ export const buttonVariants = cva(
                     "border border-neutral-200 bg-white hover:bg-neutral-100 hover:text-neutral-900",
                 secondary:
                     "bg-neutral-100 text-neutral-900 hover:bg-neutral-100/80",
-                ghost: "hover:bg-neutral-100 hover:text-neutral-900",
+                ghost: "text-inherit hover:bg-neutral-100/20",
                 link: "text-neutral-900 underline-offset-4 hover:underline",
             },
             size: {

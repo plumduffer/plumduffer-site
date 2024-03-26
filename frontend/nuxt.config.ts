@@ -1,5 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+    alias: {
+        "@payload-types": "../cms/src/payload-types.ts",
+    },
     modules: ["@nuxtjs/tailwindcss", "shadcn-nuxt"],
     devtools: { enabled: true },
     shadcn: {

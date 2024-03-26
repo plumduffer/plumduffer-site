@@ -5,33 +5,15 @@ import { postgresAdapter } from "@payloadcms/db-postgres";
 import { webpackBundler } from "@payloadcms/bundler-webpack";
 import { slateEditor } from "@payloadcms/richtext-slate";
 import { buildConfig } from "payload/config";
-import { restrictViewer } from "./access/restrictViewer";
+import { viewerOnly } from "./access/restrictViewer";
 
 import Users from "./collections/Users";
 import Pages from "./collections/Pages";
 
-import Global from "./collections/Global";
+import Global from "./globals/Global";
 
 const CMS_URL = `https://${process.env.PAYLOAD_PUBLIC_CMS_HOST}`;
 const FRONTEND_URLS = [`https://${process.env.PAYLOAD_PUBLIC_FRONTEND_HOST}`];
-
-const publicCollections = [];
-const passwordProtectedCollections = [Pages];
-const massAccessControlledCollections = [
-    publicCollections,
-    passwordProtectedCollections,
-].flat();
-
-massAccessControlledCollections.forEach((collection) => {
-    collection.access ??= {};
-    ["create", "update", "delete"].forEach((mutation) => {
-        collection.access[mutation] ??= restrictViewer;
-    });
-});
-
-publicCollections.forEach(
-    (collection) => (collection.access.read ??= () => true),
-);
 
 export default buildConfig({
     serverURL: CMS_URL,
@@ -40,7 +22,7 @@ export default buildConfig({
         bundler: webpackBundler(),
     },
     editor: slateEditor({}),
-    collections: [Users, ...massAccessControlledCollections],
+    collections: [Users, Pages],
     globals: [Global],
     cors: FRONTEND_URLS,
     csrf: FRONTEND_URLS,
@@ -50,7 +32,12 @@ export default buildConfig({
     graphQL: {
         schemaOutputFile: path.resolve(__dirname, "generated-schema.graphql"),
     },
-    plugins: [payloadCloud()],
+    plugins: [
+        payloadCloud(),
+        viewerOnly({
+            collections: [Pages],
+        }),
+    ],
     db: postgresAdapter({
         pool: {
             connectionString: process.env.DATABASE_URI,
