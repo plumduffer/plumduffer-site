@@ -1,14 +1,9 @@
 name: plumduffer
-recipe: mean
-config:
-    node: 20
-    port: 3000
-    ssl: true
-    build: false
-    command: false
-    database: postgres:14
 services:
     appserver:
+        type: node:20
+        port: 3000
+        ssl: true
         build:
             - curl -fsSL https://get.pnpm.io/install.sh | bash -
             - pnpm add -g npm-check-updates
@@ -19,6 +14,8 @@ services:
                 NPM_CONFIG_PREFIX:
         scanner: false
         sslExpose: false
+    database:
+        type: postgres:16
 tooling:
     pnpm:
         service: appserver
