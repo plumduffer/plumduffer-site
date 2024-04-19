@@ -1,4 +1,5 @@
 import { CollectionConfig } from "payload/types";
+import Blocks from "../fields/Blocks";
 // import Link from '../fields/Link'
 
 const Pages: CollectionConfig = {
@@ -12,6 +13,11 @@ const Pages: CollectionConfig = {
             type: "text",
             name: "title",
         },
+        {
+            type: "richText",
+            name: "content",
+        },
+        Blocks,
     ],
 };
 

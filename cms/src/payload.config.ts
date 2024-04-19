@@ -3,9 +3,9 @@ import path from "path";
 import { payloadCloud } from "@payloadcms/plugin-cloud";
 import { postgresAdapter } from "@payloadcms/db-postgres";
 import { webpackBundler } from "@payloadcms/bundler-webpack";
-import { slateEditor } from "@payloadcms/richtext-slate";
 import { buildConfig } from "payload/config";
 import { viewerOnly } from "./access/restrictViewer";
+import { lexicalEditor } from "@payloadcms/richtext-lexical";
 
 import Users from "./collections/Users";
 import Pages from "./collections/Pages";
@@ -21,7 +21,7 @@ export default buildConfig({
         user: Users.slug,
         bundler: webpackBundler(),
     },
-    editor: slateEditor({}),
+    editor: lexicalEditor({}),
     collections: [Users, Pages],
     globals: [Global],
     cors: FRONTEND_URLS,
