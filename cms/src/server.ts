@@ -1,5 +1,6 @@
 import express from "express";
 import payload from "payload";
+import CodaAndTally from "./custom-api-endpoints/CodaAndTally";
 
 require("dotenv").config();
 const app = express();
@@ -25,6 +26,7 @@ const start = async () => {
     });
 
     // Add your own express routes here
+    app.post("/api/coda-and-tally", CodaAndTally);
 
     app.listen(3001);
 };

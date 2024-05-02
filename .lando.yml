@@ -1,3 +1,5 @@
+env_file:
+    - .env
 name: plumduffer
 services:
     appserver:
@@ -7,6 +9,11 @@ services:
         build:
             - curl -fsSL https://get.pnpm.io/install.sh | bash -
             - pnpm add -g npm-check-updates
+            - ngrok config add-authtoken $NGROK_TOKEN
+        build_as_root:
+            - curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | gpg --dearmor -o /etc/apt/keyrings/ngrok.gpg
+            - echo "deb [signed-by=/etc/apt/keyrings/ngrok.gpg] https://ngrok-agent.s3.amazonaws.com buster main" | tee /etc/apt/sources.list.d/ngrok.list
+            - apt update && apt install ngrok
         overrides:
             environment:
                 PNPM_HOME: /home/node/.local/share/pnpm
