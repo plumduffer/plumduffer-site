@@ -16,6 +16,7 @@ services:
             - apt update && apt install ngrok
         overrides:
             environment:
+                PNPM_VERSION: 8.15.4
                 PNPM_HOME: /home/node/.local/share/pnpm
                 PATH: /home/node/.local/share/pnpm:$PATH
                 NPM_CONFIG_PREFIX:
