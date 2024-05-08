@@ -7,7 +7,7 @@ const Users: CollectionConfig = {
     slug: "users",
     auth: {
         cookies: {
-            domain: process.env.PAYLOAD_PUBLIC_FRONTEND_HOST,
+            domain: process.env.AUTH_COOKIES_DOMAIN,
         },
     },
     admin: {

@@ -20,6 +20,8 @@ export default defineNuxtConfig({
         cssPath: "~/assets/css/main.css",
     },
     runtimeConfig: {
+        codaCsrfToken: process.env.NUXT_CODA_CSRF_TOKEN,
+        codaAuthSession: process.env.NUXT_CODA_AUTH_SESSION,
         public: {
             cmsHost: process.env.NUXT_PUBLIC_CMS_HOST,
             guestEmail: process.env.NUXT_PUBLIC_GUEST_EMAIL,

@@ -10,25 +10,25 @@
         "postinstall": "nuxt prepare"
     },
     "devDependencies": {
-        "@nuxtjs/tailwindcss": "^6.11.4",
-        "nuxt": "^3.11.1",
-        "shadcn-nuxt": "^0.10.2",
-        "typescript": "^5.4.2",
-        "vue": "^3.4.21",
-        "vue-router": "^4.3.0",
-        "wrangler": "^3.34.2"
+        "@nuxtjs/tailwindcss": "^6.12.0",
+        "nuxt": "^3.11.2",
+        "shadcn-nuxt": "^0.10.4",
+        "typescript": "^5.4.5",
+        "vue": "^3.4.27",
+        "vue-router": "^4.3.2",
+        "wrangler": "^3.53.1"
     },
     "dependencies": {
-        "@vee-validate/zod": "^4.12.6",
+        "@vee-validate/zod": "^4.12.7",
         "@vueuse/core": "^10.9.0",
         "class-variance-authority": "^0.7.0",
-        "clsx": "^2.1.0",
-        "lucide-vue-next": "^0.358.0",
-        "radix-vue": "^1.5.2",
-        "tailwind-merge": "^2.2.2",
+        "clsx": "^2.1.1",
+        "lucide-vue-next": "^0.378.0",
+        "radix-vue": "^1.7.4",
+        "tailwind-merge": "^2.3.0",
         "tailwindcss-animate": "^1.0.7",
-        "vee-validate": "^4.12.6",
+        "vee-validate": "^4.12.7",
         "vue-sonner": "^1.1.2",
-        "zod": "^3.22.4"
+        "zod": "^3.23.7"
     }
 }

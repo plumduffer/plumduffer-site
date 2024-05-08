@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Global } from "@payload-types";
 import { X } from "lucide-vue-next";
-import PayloadLink from "./components/ui/payload-link/PayloadLink.vue";
+import PayloadLink from "../components/ui/payload-link/PayloadLink.vue";
 import { useStorage } from "@vueuse/core";
 
 const { data } = await usePayloadAPI("/globals/global");
@@ -44,23 +44,21 @@ function handleCloseAlert(event: Event) {
         />
         <Link rel="manifest" href="/site.webmanifest" />
     </Head>
-    <NuxtLayout>
-        <PayloadLink v-if="showAlert" v-bind="alert">
-            <Alert class="px-8">
-                <AlertDescription class="font-semibold">{{
-                    alert.customText
-                }}</AlertDescription>
-                <Button
-                    class="absolute right-2 bottom-1/2 translate-y-1/2"
-                    variant="ghost"
-                    size="icon"
-                    @click="handleCloseAlert"
-                >
-                    <X />
-                </Button>
-            </Alert>
-        </PayloadLink>
-        <Toaster />
-        <NuxtPage />
-    </NuxtLayout>
+    <PayloadLink v-if="showAlert" v-bind="alert">
+        <Alert class="px-8">
+            <AlertDescription class="font-semibold">{{
+                alert.customText
+            }}</AlertDescription>
+            <Button
+                class="absolute right-2 bottom-1/2 translate-y-1/2"
+                variant="ghost"
+                size="icon"
+                @click="handleCloseAlert"
+            >
+                <X />
+            </Button>
+        </Alert>
+    </PayloadLink>
+    <Toaster />
+    <slot />
 </template>
