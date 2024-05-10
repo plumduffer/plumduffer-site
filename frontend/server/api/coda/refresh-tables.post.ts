@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
 
     const { docId, automationIds } = body;
 
-    const requests = automationIds.map((automationId: String) => {
+    automationIds.map((automationId: String) => {
         const url = `https://coda.io/internalAppApi/documents/${docId}/automations/${automationId}/initiate`;
         return $fetch(url, {
             method: "POST",
