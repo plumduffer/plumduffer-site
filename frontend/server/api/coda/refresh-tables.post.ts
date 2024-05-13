@@ -16,11 +16,15 @@ export default defineEventHandler(async (event) => {
 
     const { docId, automationIds } = body;
 
-    automationIds.map((automationId: String) => {
+    const responses = automationIds.map((automationId: String) => {
         const url = `https://coda.io/internalAppApi/documents/${docId}/automations/${automationId}/initiate`;
         return $fetch(url, {
             method: "POST",
             headers,
         });
     });
+
+    const data = await Promise.all(responses);
+
+    return data;
 });
