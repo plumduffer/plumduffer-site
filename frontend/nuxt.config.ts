@@ -25,7 +25,6 @@ export default defineNuxtConfig({
         codaCsrfToken: process.env.NUXT_CODA_CSRF_TOKEN,
         codaAuthSession: process.env.NUXT_CODA_AUTH_SESSION,
         public: {
-            appHost: process.env.NUXT_PUBLIC_APP_HOST,
             cmsHost: process.env.NUXT_PUBLIC_CMS_HOST,
             guestEmail: process.env.NUXT_PUBLIC_GUEST_EMAIL,
         },

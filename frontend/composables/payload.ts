@@ -42,5 +42,5 @@ export const useLoginPayloadUser = async ({
 export const useGetPayloadUser = async () => {
     const payloadUser = usePayloadUser();
     const { data } = await usePayloadAPI("/users/me");
-    payloadUser.value = (data.value as any).user;
+    payloadUser.value = (data.value as any)?.user;
 };

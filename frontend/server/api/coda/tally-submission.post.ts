@@ -1,9 +1,5 @@
 export default defineEventHandler(async (event) => {
-    const {
-        codaApiKey,
-        codaInsertIssueEndpoint,
-        public: { appHost },
-    } = useRuntimeConfig(event);
+    const { codaApiKey, codaInsertIssueEndpoint } = useRuntimeConfig(event);
     const body = await readBody(event);
 
     const fields = body?.data.fields;
@@ -73,23 +69,6 @@ export default defineEventHandler(async (event) => {
             ],
         },
     }).catch((error) => setResponseStatus(event, error.statusCode));
-
-    setTimeout(async () => {
-        await $fetch(`https://${appHost}/api/coda/refresh-tables`, {
-            method: "POST",
-            body: {
-                docId: fields.find(
-                    (field: any) => field.label === "coda_doc_id",
-                ).value,
-                automationIds: [
-                    fields.find(
-                        (field: any) =>
-                            field.label === "coda_issues_table_automation_id",
-                    ).value,
-                ],
-            },
-        });
-    }, 20000);
 
     setResponseStatus(event, 200);
 });
