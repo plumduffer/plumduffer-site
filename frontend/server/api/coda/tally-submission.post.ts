@@ -16,21 +16,13 @@ export default defineEventHandler(async (event) => {
         });
     }
 
-    const fieldsForCoda = fields
-        .map((field: any) => {
-            return {
-                // WARNING: make sure Coda column names and Tally field labels are identical
-                column: field.label,
-                value: getValueBasedOnFieldType(field),
-            };
-        })
-        // Remove fields meant for refreshing table automatically
-        .filter((field: any) => {
-            return (
-                field.column !== "coda_doc_id" &&
-                field.column !== "coda_issues_table_automation_id"
-            );
-        });
+    const fieldsForCoda = fields.map((field: any) => {
+        return {
+            // WARNING: make sure Coda column names and Tally field labels are identical
+            column: field.label,
+            value: getValueBasedOnFieldType(field),
+        };
+    });
 
     // Coda row should have a created at column
     fieldsForCoda.push({
@@ -76,6 +68,11 @@ export default defineEventHandler(async (event) => {
 const getValueBasedOnFieldType = (field: any) => {
     const { type, options, value } = field;
     if (!value) return "";
+    if (type === "TEXTAREA") {
+        return value.replace(/\n{2,}/g, function (match: any) {
+            return "\n".repeat(match.length - 1);
+        });
+    }
     if (type === "MULTIPLE_CHOICE") {
         const chosenOption = options.find(
             (option: any) => option.id === value[0],
