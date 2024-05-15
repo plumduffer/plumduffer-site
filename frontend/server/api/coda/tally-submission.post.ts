@@ -68,11 +68,6 @@ export default defineEventHandler(async (event) => {
 const getValueBasedOnFieldType = (field: any) => {
     const { type, options, value } = field;
     if (!value) return "";
-    if (type === "TEXTAREA") {
-        return value.replace(/\n{2,}/g, function (match: any) {
-            return "\n".repeat(match.length - 1);
-        });
-    }
     if (type === "MULTIPLE_CHOICE") {
         const chosenOption = options.find(
             (option: any) => option.id === value[0],
