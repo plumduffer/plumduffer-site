@@ -3,8 +3,11 @@ export default defineNuxtConfig({
     alias: {
         "@payload-types": "../cms/src/payload-types.ts",
     },
-    modules: ["@nuxtjs/tailwindcss", "shadcn-nuxt"],
+    modules: ["@nuxtjs/tailwindcss", "shadcn-nuxt", "nitro-cloudflare-dev"],
     devtools: { enabled: true },
+    nitro: {
+        preset: "cloudflare-pages",
+    },
     shadcn: {
         /**
          * Prefix for all the imported component

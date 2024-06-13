@@ -6,17 +6,20 @@
         "build": "nuxt build",
         "dev": "nuxt dev",
         "generate": "nuxt generate",
-        "preview": "nuxt preview",
-        "postinstall": "nuxt prepare"
+        "preview": "pnpm build && wrangler pages dev --ip 0.0.0.0",
+        "postinstall": "nuxt prepare",
+        "wrangler": "wrangler"
     },
     "devDependencies": {
+        "@cloudflare/workers-types": "^4.20240605.0",
         "@nuxtjs/tailwindcss": "^6.12.0",
+        "nitro-cloudflare-dev": "^0.1.4",
         "nuxt": "^3.11.2",
         "shadcn-nuxt": "^0.10.4",
         "typescript": "^5.4.5",
         "vue": "^3.4.27",
         "vue-router": "^4.3.2",
-        "wrangler": "^3.53.1"
+        "wrangler": "^3.60.2"
     },
     "dependencies": {
         "@vee-validate/zod": "^4.12.7",
