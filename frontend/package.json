@@ -6,7 +6,7 @@
         "build": "nuxt build",
         "dev": "nuxt dev",
         "generate": "nuxt generate",
-        "preview": "pnpm build && wrangler pages dev --ip 0.0.0.0",
+        "preview": "pnpm build && wrangler pages dev --ip 0.0.0.0 --port 3000",
         "postinstall": "nuxt prepare",
         "wrangler": "wrangler"
     },
