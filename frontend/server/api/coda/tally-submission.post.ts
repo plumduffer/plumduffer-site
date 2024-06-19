@@ -59,20 +59,27 @@ export default defineEventHandler(async (event) => {
         }
     });
 
-    await $fetch(codaInsertIssueEndpoint, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${codaApiKey}`,
-        },
-        body: {
-            rows: [
-                {
-                    cells: fieldsForCoda,
-                },
-            ],
-        },
-    }).catch((error) => setResponseStatus(event, error.statusCode));
+    try {
+        await $fetch(codaInsertIssueEndpoint, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${codaApiKey}`,
+            },
+            body: {
+                rows: [
+                    {
+                        cells: fieldsForCoda,
+                    },
+                ],
+            },
+        });
+    } catch (error: any) {
+        throw createError({
+            statusCode: error.statusCode,
+            statusMessage: error.statusMessage,
+        });
+    }
 
     setResponseStatus(event, 200);
 
