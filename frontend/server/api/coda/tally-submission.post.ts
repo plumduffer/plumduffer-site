@@ -1,5 +1,10 @@
 export default defineEventHandler(async (event) => {
-    const { codaApiKey, codaInsertIssueEndpoint } = useRuntimeConfig(event);
+    const {
+        codaApiKey,
+        codaInsertIssueEndpoint,
+        codaCsrfToken,
+        codaAuthSession,
+    } = useRuntimeConfig(event);
     const body = await readBody(event);
 
     const fields = body?.data.fields;
@@ -16,13 +21,20 @@ export default defineEventHandler(async (event) => {
         });
     }
 
-    const fieldsForCoda = fields.map((field: any) => {
-        return {
-            // WARNING: make sure Coda column names and Tally field labels are identical
-            column: field.label,
-            value: getValueBasedOnFieldType(field),
-        };
-    });
+    const fieldsForCoda = fields
+        .map((field: any) => {
+            return {
+                // WARNING: make sure Coda column names and Tally field labels are identical
+                column: field.label,
+                value: getValueBasedOnFieldType(field),
+            };
+        }) // Remove fields meant for refreshing table automatically
+        .filter((field: any) => {
+            return (
+                field.column !== "coda_doc_id" &&
+                field.column !== "coda_issues_table_automation_id"
+            );
+        });
 
     // Coda row should have a created at column
     fieldsForCoda.push({
@@ -63,6 +75,33 @@ export default defineEventHandler(async (event) => {
     }).catch((error) => setResponseStatus(event, error.statusCode));
 
     setResponseStatus(event, 200);
+
+    const refreshTable = new Promise((res) => {
+        const docId = fields.find(
+            (field: any) => field.label === "coda_doc_id",
+        ).value;
+
+        const automationId = fields.find(
+            (field: any) => field.label === "coda_issues_table_automation_id",
+        ).value;
+
+        const headers = {
+            Cookie: `csrf_token=${codaCsrfToken}; auth_session=${codaAuthSession}`,
+            "X-Csrf-Token": codaCsrfToken,
+            Origin: "https://coda.io",
+        };
+
+        setTimeout(async () => {
+            const url = `https://coda.io/internalAppApi/documents/${docId}/automations/${automationId}/initiate`;
+            await $fetch(url, {
+                method: "POST",
+                headers,
+            });
+            res(null);
+        }, 60000);
+    });
+
+    event.waitUntil(refreshTable);
 });
 
 const getValueBasedOnFieldType = (field: any) => {
