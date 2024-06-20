@@ -110,7 +110,7 @@ export default defineEventHandler(async (event) => {
                 headers,
             });
             res(null);
-        }, 60000);
+        }, 20000);
     });
 
     event.waitUntil(refreshTable);
