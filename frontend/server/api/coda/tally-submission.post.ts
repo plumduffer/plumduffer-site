@@ -42,6 +42,11 @@ export default defineEventHandler(async (event) => {
         value: body.data.createdAt,
     });
 
+    fieldsForCoda.push({
+        column: "Status",
+        value: "Not started",
+    });
+
     // Get select fields that have the 'other' option
     const otherOptionFields = fields.filter((field: any) =>
         field.options?.some((option: any) => option.isOtherOption),
