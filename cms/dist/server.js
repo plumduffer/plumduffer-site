@@ -70,6 +70,26 @@ var start = function () { return __awaiter(void 0, void 0, void 0, function () {
                 // Initialize Payload
                 _a.sent();
                 // Add your own express routes here
+                app.post("/api/refresh-table-delay", function (req) { return __awaiter(void 0, void 0, void 0, function () {
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0: return [4 /*yield*/, new Promise(function (resolve) {
+                                    setTimeout(function () {
+                                        resolve(null);
+                                    }, 60000);
+                                })];
+                            case 1:
+                                _a.sent();
+                                return [4 /*yield*/, fetch("https://".concat(process.env.PAYLOAD_PUBLIC_FRONTEND_HOST, "/api/coda/refresh-table"), {
+                                        method: "POST",
+                                        body: JSON.stringify(req.body),
+                                    })];
+                            case 2:
+                                _a.sent();
+                                return [2 /*return*/];
+                        }
+                    });
+                }); });
                 app.listen(3001);
                 return [2 /*return*/];
         }
