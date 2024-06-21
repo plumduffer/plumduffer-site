@@ -88,32 +88,23 @@ export default defineEventHandler(async (event) => {
 
     setResponseStatus(event, 200);
 
-    const refreshTable = new Promise((res) => {
-        const docId = fields.find(
-            (field: any) => field.label === "coda_doc_id",
-        ).value;
+    const docId = fields.find(
+        (field: any) => field.label === "coda_doc_id",
+    ).value;
 
-        const automationId = fields.find(
-            (field: any) => field.label === "coda_issues_table_automation_id",
-        ).value;
+    const automationId = fields.find(
+        (field: any) => field.label === "coda_issues_table_automation_id",
+    ).value;
 
-        const headers = {
-            Cookie: `csrf_token=${codaCsrfToken}; auth_session=${codaAuthSession}`,
-            "X-Csrf-Token": codaCsrfToken,
-            Origin: "https://coda.io",
-        };
-
-        setTimeout(async () => {
-            const url = `https://coda.io/internalAppApi/documents/${docId}/automations/${automationId}/initiate`;
-            await $fetch(url, {
-                method: "POST",
-                headers,
-            });
-            res(null);
-        }, 20000);
-    });
-
-    event.waitUntil(refreshTable);
+    event.waitUntil(
+        $fetch("/api/coda/refresh-table", {
+            method: "POST",
+            body: {
+                docId,
+                automationId,
+            },
+        }),
+    );
 });
 
 const getValueBasedOnFieldType = (field: any) => {
