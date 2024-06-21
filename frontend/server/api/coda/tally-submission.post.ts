@@ -2,8 +2,7 @@ export default defineEventHandler(async (event) => {
     const {
         codaApiKey,
         codaInsertIssueEndpoint,
-        codaCsrfToken,
-        codaAuthSession,
+        public: { cmsHost },
     } = useRuntimeConfig(event);
     const body = await readBody(event);
 
@@ -97,7 +96,7 @@ export default defineEventHandler(async (event) => {
     ).value;
 
     event.waitUntil(
-        $fetch("/api/coda/refresh-table", {
+        $fetch(`https://${cmsHost}/api/refresh-table-delay`, {
             method: "POST",
             body: {
                 docId,

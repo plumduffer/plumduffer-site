@@ -25,6 +25,21 @@ const start = async () => {
     });
 
     // Add your own express routes here
+    app.post("/api/refresh-table-delay", async (req) => {
+        await new Promise((resolve) => {
+            setTimeout(() => {
+                resolve(null);
+            }, 60000);
+        });
+
+        await fetch(
+            `https://${process.env.PAYLOAD_PUBLIC_FRONTEND_HOST}/api/coda/refresh-table`,
+            {
+                method: "POST",
+                body: JSON.stringify(req.body),
+            },
+        );
+    });
 
     app.listen(3001);
 };
