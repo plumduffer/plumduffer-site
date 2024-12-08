@@ -1,0 +1,36 @@
+env_file:
+    - .env
+name: plumduffer
+services:
+    appserver:
+        type: node:20
+        port: 3000
+        ssl: true
+        build:
+            - curl -fsSL https://get.pnpm.io/install.sh | bash -
+            - pnpm add -g npm-check-updates
+            - ngrok config add-authtoken $NGROK_TOKEN
+        build_as_root:
+            - curl -s https://ngrok-agent.s3.amazonaws.com/ngrok.asc | gpg --dearmor -o /etc/apt/keyrings/ngrok.gpg
+            - echo "deb [signed-by=/etc/apt/keyrings/ngrok.gpg] https://ngrok-agent.s3.amazonaws.com buster main" | tee /etc/apt/sources.list.d/ngrok.list
+            - apt update && apt install ngrok
+        overrides:
+            environment:
+                PNPM_VERSION: 8.15.4
+                PNPM_HOME: /home/node/.local/share/pnpm
+                PATH: /home/node/.local/share/pnpm:$PATH
+                NPM_CONFIG_PREFIX:
+        scanner: false
+        sslExpose: false
+    database:
+        type: postgres:16
+tooling:
+    pnpm:
+        service: appserver
+    ncu:
+        service: appserver
+        description: Runs npm-check-updates global package
+proxy:
+    appserver:
+        - plumduffer.lndo.site:3000
+        - cms.plumduffer.lndo.site:3001

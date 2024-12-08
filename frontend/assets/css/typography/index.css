@@ -1,0 +1,26 @@
+@import "phudu";
+
+h1,
+h2,
+h3,
+button,
+input {
+    &:not(input) {
+        font-family: "Phudu";
+    }
+    @apply text-neutral-50;
+}
+
+h1 {
+    @apply font-bold;
+}
+
+p {
+    @apply text-plum-light;
+}
+
+p,
+button,
+input {
+    @apply text-xl;
+}
