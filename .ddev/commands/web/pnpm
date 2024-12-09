@@ -4,5 +4,5 @@
 ## Usage: pnpm
 ## Example: ddev pnpm
 
-~/.local/share/pnpm/pnpm $1
+~/.local/share/pnpm/pnpm "$@"
 exit 0

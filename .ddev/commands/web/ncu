@@ -4,5 +4,5 @@
 ## Usage: ncu
 ## Example: ddev ncu
 
-~/.local/share/pnpm/ncu $1
+~/.local/share/pnpm/ncu "$@"
 exit 0
