@@ -4,15 +4,17 @@ docroot: ""
 php_version: "8.3"
 webserver_type: nginx-fpm
 xdebug_enabled: false
-additional_hostnames: []
+additional_hostnames:
+    - "cms.plumduffer"
 additional_fqdns: []
 database:
-    type: mariadb
-    version: "10.11"
+    type: postgres
+    version: "15"
 use_dns_when_possible: true
 composer_version: "2"
 web_environment: []
 corepack_enable: false
+nodejs_version: 22.12.0
 
 # Key features of DDEV's config.yaml:
 
