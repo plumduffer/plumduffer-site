@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+## Description: Run pnpm commands in web container
+## Usage: pnpm
+## Example: ddev pnpm
+
+~/.local/share/pnpm/pnpm $1
+exit 0
