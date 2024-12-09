@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+## Description: Run pnpx commands in web container
+## Usage: pnpx
+## Example: ddev pnpx
+
+~/.local/share/pnpm/pnpm dlx $1
+exit 0

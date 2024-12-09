@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+## Description: Run ncu commands in web container
+## Usage: ncu
+## Example: ddev ncu
+
+~/.local/share/pnpm/ncu $1
+exit 0
