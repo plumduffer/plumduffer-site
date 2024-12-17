@@ -5,6 +5,17 @@ export default {
     content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
     theme: {
         extend: {
+            gridTemplateColumns: {
+                container: `
+                    [full-width-start] minmax(var(--padding-inline), 1fr)
+                    [content-start] calc(min(100% - var(--padding-inline) * 2, var(--content-max-width)) / 2)
+                    [middle] calc(min(100% - var(--padding-inline) * 2, var(--content-max-width)) / 2) [content-end]
+                    minmax(var(--padding-inline), 1fr) [full-width-end];
+                `.replace(/\s{2,}/g, ""),
+            },
+            gridColumn: {
+                content: "content",
+            },
             borderRadius: {
                 lg: "var(--radius)",
                 md: "calc(var(--radius) - 2px)",
