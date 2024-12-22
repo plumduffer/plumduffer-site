@@ -65,6 +65,10 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: number;
+  /**
+   * Choosing 'Viewer Only' will overwrite all other roles. The user will no longer have access to the content management system. They will only be able to view password protected pages.
+   */
+  roles?: ('admin' | 'viewer')[] | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -172,6 +176,7 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  roles?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
